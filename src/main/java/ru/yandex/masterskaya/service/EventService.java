@@ -1,101 +1,21 @@
 package ru.yandex.masterskaya.service;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
-import ru.yandex.masterskaya.exception.BadRequestException;
-import ru.yandex.masterskaya.exception.ForbiddenException;
-import ru.yandex.masterskaya.exception.NotFoundException;
-import ru.yandex.masterskaya.model.Event;
 import ru.yandex.masterskaya.model.dto.EventRequestDto;
 import ru.yandex.masterskaya.model.dto.EventResponseDto;
 import ru.yandex.masterskaya.model.dto.EventShortResponseDto;
-import ru.yandex.masterskaya.model.mapper.EventMapper;
-import ru.yandex.masterskaya.repository.EventRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Service
-@RequiredArgsConstructor
-@Slf4j
-public class EventService {
+public interface EventService {
 
-    private final EventRepository eventRepository;
-    private final EventMapper mapper;
+    EventResponseDto saveEvent(EventRequestDto eventRequestDto, Long userId);
 
-    public EventResponseDto saveEvent(EventRequestDto eventRequestDto, Long userId) {
-        Event event = mapper.toEvent(eventRequestDto);
-        event.setCreatedDateTime(LocalDateTime.now());
-        event.setOwnerId(userId);
-        if (event.getStartDateTime().isAfter(event.getEndDateTime())) {
-            throw new BadRequestException("Start time can't be after end time");
-        }
-        if (event.getStartDateTime().isBefore(event.getCreatedDateTime())) {
-            throw new BadRequestException("Event can't start before it is created");
-        }
-        return mapper.toEventResponseDto(eventRepository.save(event));
-    }
+    EventResponseDto patchEvent(EventRequestDto eventRequestDto, Long userId, Long id);
 
-    public EventResponseDto patchEvent(EventRequestDto eventRequestDto, Long userId, Long id) {
-        Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Event not found"));
-        if (!event.getOwnerId().equals(userId)) {
-            throw new ForbiddenException("User is not event owner");
-        }
+    EventShortResponseDto getEvent(Long userId, Long id);
 
-        Event patchedEvent = mapper.toEvent(eventRequestDto);
+    List<EventShortResponseDto> getEventsByOwner(Long userId, PageRequest pageRequest);
 
-        if (patchedEvent.getName() != null) {
-            event.setName(patchedEvent.getName());
-        }
-        if (patchedEvent.getDescription() != null) {
-            event.setDescription(patchedEvent.getDescription());
-        }
-        if (patchedEvent.getLocation() != null) {
-            event.setLocation(patchedEvent.getLocation());
-        }
-        if (patchedEvent.getStartDateTime() != null) {
-            event.setStartDateTime(patchedEvent.getStartDateTime());
-            if (event.getStartDateTime().isAfter(event.getEndDateTime())) {
-                throw new BadRequestException("Start time can't be after end time");
-            }
-        }
-        if (patchedEvent.getEndDateTime() != null) {
-            event.setEndDateTime(patchedEvent.getEndDateTime());
-            if (event.getStartDateTime().isAfter(event.getEndDateTime())) {
-                throw new BadRequestException("Start time can't be after end time");
-            }
-        }
-
-        return mapper.toEventResponseDto(eventRepository.save(event));
-    }
-
-    public EventShortResponseDto getEvent(Long userId, Long id) {
-        Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Event not found"));
-
-        if (event.getOwnerId().equals(userId)) {
-            return mapper.toEventResponseDto(event);
-        } else {
-            return mapper.toEventShortResponseDto(event);
-        }
-    }
-
-    public List<EventShortResponseDto> getEventsByOwner(Long userId, PageRequest pageRequest) {
-        return eventRepository.findAllByOwnerId(userId, pageRequest).stream()
-                .map(mapper::toEventShortResponseDto)
-                .collect(Collectors.toList());
-    }
-
-    public void deleteEvent(Long userId, Long id) {
-        Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Event not found"));
-        if (!event.getOwnerId().equals(userId)) {
-            throw new ForbiddenException("User is not event owner");
-        }
-        eventRepository.deleteById(id);
-    }
+    void deleteEvent(Long userId, Long id);
 }
