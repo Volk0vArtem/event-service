@@ -52,7 +52,7 @@ public class EventController {
     }
 
     @GetMapping
-    public ResponseEntity<List<EventShortResponseDto>> getEventsByOwner(@RequestParam("userId") @Positive Long userId,
+    public ResponseEntity<List<EventShortResponseDto>> getEventsByOwner(@RequestParam(name="userId", required = false) Long userId,
                                                                         @RequestParam("page") Integer page,
                                                                         @RequestParam("size") Integer size) {
         if (page < 0 || size < 1) {
