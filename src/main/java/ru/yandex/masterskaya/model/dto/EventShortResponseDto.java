@@ -1,12 +1,16 @@
 package ru.yandex.masterskaya.model.dto;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@SuperBuilder
+@RequiredArgsConstructor
 public class EventShortResponseDto {
     private Long id;
 

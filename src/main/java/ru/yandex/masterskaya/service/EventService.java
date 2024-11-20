@@ -85,9 +85,15 @@ public class EventService {
     }
 
     public List<EventShortResponseDto> getEventsByOwner(Long userId, PageRequest pageRequest) {
-        return eventRepository.findAllByOwnerId(userId, pageRequest).stream()
-                .map(mapper::toEventShortResponseDto)
-                .collect(Collectors.toList());
+        if (userId != null) {
+            return eventRepository.findAllByOwnerId(userId, pageRequest).stream()
+                    .map(mapper::toEventShortResponseDto)
+                    .collect(Collectors.toList());
+        } else {
+            return eventRepository.findAll().stream()
+                    .map(mapper::toEventShortResponseDto)
+                    .collect(Collectors.toList());
+        }
     }
 
     public void deleteEvent(Long userId, Long id) {
