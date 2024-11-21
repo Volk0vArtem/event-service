@@ -9,10 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
-import ru.yandex.masterskaya.model.dto.EventRequestDto;
-import ru.yandex.masterskaya.model.dto.EventResponseDto;
-import ru.yandex.masterskaya.model.dto.EventShortResponseDto;
+import ru.yandex.masterskaya.model.event.dto.EventRequestDto;
+import ru.yandex.masterskaya.model.event.dto.EventResponseDto;
+import ru.yandex.masterskaya.model.event.dto.EventShortResponseDto;
 import ru.yandex.masterskaya.repository.EventRepository;
+import ru.yandex.masterskaya.service.event.EventService;
 
 import java.time.LocalDateTime;
 import java.util.List;

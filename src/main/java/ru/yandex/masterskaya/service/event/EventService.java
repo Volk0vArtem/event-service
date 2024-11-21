@@ -1,9 +1,9 @@
-package ru.yandex.masterskaya.service;
+package ru.yandex.masterskaya.service.event;
 
 import org.springframework.data.domain.PageRequest;
-import ru.yandex.masterskaya.model.dto.EventRequestDto;
-import ru.yandex.masterskaya.model.dto.EventResponseDto;
-import ru.yandex.masterskaya.model.dto.EventShortResponseDto;
+import ru.yandex.masterskaya.model.event.dto.EventRequestDto;
+import ru.yandex.masterskaya.model.event.dto.EventResponseDto;
+import ru.yandex.masterskaya.model.event.dto.EventShortResponseDto;
 
 import java.util.List;
 

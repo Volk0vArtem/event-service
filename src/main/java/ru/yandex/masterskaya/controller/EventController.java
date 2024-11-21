@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.masterskaya.exception.BadRequestException;
-import ru.yandex.masterskaya.model.dto.EventRequestDto;
-import ru.yandex.masterskaya.model.dto.EventResponseDto;
-import ru.yandex.masterskaya.model.dto.EventShortResponseDto;
-import ru.yandex.masterskaya.service.EventService;
+import ru.yandex.masterskaya.model.event.dto.EventRequestDto;
+import ru.yandex.masterskaya.model.event.dto.EventResponseDto;
+import ru.yandex.masterskaya.model.event.dto.EventShortResponseDto;
+import ru.yandex.masterskaya.service.event.EventService;
 
 import java.util.List;
 

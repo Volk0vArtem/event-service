@@ -1,4 +1,4 @@
-package ru.yandex.masterskaya.model.dto;
+package ru.yandex.masterskaya.model.event.dto;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Size;

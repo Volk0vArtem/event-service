@@ -1,15 +1,21 @@
-package ru.yandex.masterskaya.model;
+package ru.yandex.masterskaya.model.event;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import ru.yandex.masterskaya.model.manager.Manager;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "events")
@@ -40,4 +46,12 @@ public class Event {
 
     @Column(name = "owner_id")
     private Long ownerId;
+
+    @OneToMany
+    @JoinTable(
+            name = "event_team_managers",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "manager_id")
+    )
+    private Set<Manager> personnel = new HashSet<>();
 }

@@ -11,9 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.yandex.masterskaya.model.dto.EventRequestDto;
-import ru.yandex.masterskaya.model.dto.EventResponseDto;
-import ru.yandex.masterskaya.service.EventService;
+import ru.yandex.masterskaya.model.event.dto.EventRequestDto;
+import ru.yandex.masterskaya.model.event.dto.EventResponseDto;
+import ru.yandex.masterskaya.service.event.EventService;
 
 import java.time.LocalDateTime;
 import java.util.List;
