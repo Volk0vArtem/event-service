@@ -1,0 +1,510 @@
+{
+	"info": {
+		"_postman_id": "f10fcae6-c0cd-4281-8944-198e38d14591",
+		"name": "workshop sprint 1 /event-service add-managers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28976365"
+	},
+	"item": [
+		{
+			"name": "Post event",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 201  и данные в формате json\", function () {",
+							"    pm.response.to.have.status(201);",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"const target = pm.response.json();",
+							"pm.collectionVariables.set(\"eventId\", target.id);",
+							"pm.collectionVariables.set(\"ownerId\", target.ownerId);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-User-Id",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"name\",\n  \"description\": \"description\",\n  \"startDateTime\": \"2030-12-10T10:00:00\",\n  \"endDateTime\": \"2030-12-20T10:00:00\",\n  \"location\": \"location\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/events",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add manager 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+							"    pm.response.to.be.ok;    \r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"const target = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Команда должна содержать поля: eventId, personnel. Менеджер должен содержать поля: userId,  role\", function () {\r",
+							"    pm.expect(target).to.have.property('eventId');\r",
+							"    pm.expect(target).to.have.property('personnel');\r",
+							"    pm.expect(target.personnel[0]).to.have.property('userId');\r",
+							"    pm.expect(target.personnel[0]).to.have.property('role');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Event-ManagerId",
+						"value": "{{ownerId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"eventId\":\"{{eventId}}\",\r\n    \"manager\":{\r\n        \"userId\":\"{{1managerId}}\",\r\n        \"role\":\"MANAGER\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/managers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"managers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add manager 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+							"    pm.response.to.be.ok;    \r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"const target = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Команда должна содержать поля: eventId, personnel. Менеджер должен содержать поля: userId,  role\", function () {\r",
+							"    pm.expect(target).to.have.property('eventId');\r",
+							"    pm.expect(target).to.have.property('personnel');\r",
+							"    pm.expect(target.personnel[0]).to.have.property('userId');\r",
+							"    pm.expect(target.personnel[0]).to.have.property('role');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Event-ManagerId",
+						"value": "{{ownerId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"eventId\":\"{{eventId}}\",\r\n    \"manager\":{\r\n        \"userId\":\"{{2managerId}}\",\r\n        \"role\":\"MANAGER\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/managers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"managers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fail add manager",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Event-ManagerId",
+						"value": "{{ownerId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"eventId\":\"{{eventId}}\",\r\n    \"manager\":{\r\n        \"userId\":\"-1\",\r\n        \"role\":\"MANAGER\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/managers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"managers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch manager 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+							"    pm.response.to.be.ok;    \r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"const target = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Команда должна содержать поля: eventId, personnel. Менеджер должен содержать поля: userId,  role\", function () {\r",
+							"    pm.expect(target).to.have.property('userId');\r",
+							"    pm.expect(target).to.have.property('role');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "X-Event-ManagerId",
+						"value": "{{ownerId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n    \"userId\":\"{{2managerId}}\",\r\n    \"role\":\"SECURITY\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/managers/{{eventId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"managers",
+						"{{eventId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fail patch manager 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 403 и данные в формате json\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "X-Event-ManagerId",
+						"value": "9999",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n    \"userId\":\"{{2managerId}}\",\r\n    \"role\":\"SECURITY\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/managers/{{eventId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"managers",
+						"{{eventId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get event personal",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+							"    pm.response.to.be.ok;    \r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"const target = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Команда должна содержать поля: eventId, personnel. Менеджер должен содержать поля: userId,  role\", function () {\r",
+							"    pm.expect(target).to.have.property('eventId');\r",
+							"    pm.expect(target).to.have.property('personnel');\r",
+							"    pm.expect(target.personnel[0]).to.have.property('userId');\r",
+							"    pm.expect(target.personnel[0]).to.have.property('role');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Количество сотрудников должно быть 2\", function () {\r",
+							"    pm.expect(target.personnel.length).to.eql(2);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/managers/{{eventId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"managers",
+						"{{eventId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fail delete manager 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 403 и данные в формате json\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Event-ManagerId",
+						"value": "{{2managerId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/managers/{{eventId}}/{{1managerId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"managers",
+						"{{eventId}}",
+						"{{1managerId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete manager 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Event-ManagerId",
+						"value": "{{1managerId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/managers/{{eventId}}/{{2managerId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"managers",
+						"{{eventId}}",
+						"{{2managerId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "ownerId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "eventId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "1managerId",
+			"value": "10",
+			"type": "string"
+		},
+		{
+			"key": "2managerId",
+			"value": "20",
+			"type": "string"
+		},
+		{
+			"key": "id",
+			"value": ""
+		}
+	]
+}

@@ -1,4 +1,4 @@
-package ru.yandex.masterskaya.service;
+package ru.yandex.masterskaya.service.event;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 import ru.yandex.masterskaya.exception.BadRequestException;
 import ru.yandex.masterskaya.exception.ForbiddenException;
 import ru.yandex.masterskaya.exception.NotFoundException;
-import ru.yandex.masterskaya.model.Event;
-import ru.yandex.masterskaya.model.dto.EventRequestDto;
-import ru.yandex.masterskaya.model.dto.EventResponseDto;
-import ru.yandex.masterskaya.model.dto.EventShortResponseDto;
-import ru.yandex.masterskaya.model.mapper.EventMapper;
+import ru.yandex.masterskaya.model.event.Event;
+import ru.yandex.masterskaya.model.event.dto.EventRequestDto;
+import ru.yandex.masterskaya.model.event.dto.EventResponseDto;
+import ru.yandex.masterskaya.model.event.dto.EventShortResponseDto;
+import ru.yandex.masterskaya.model.event.mapper.EventMapper;
 import ru.yandex.masterskaya.repository.EventRepository;
 
 import java.time.LocalDateTime;

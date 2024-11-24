@@ -1,4 +1,4 @@
-package ru.yandex.masterskaya.model.dto;
+package ru.yandex.masterskaya.model.event.dto;
 
 import lombok.Getter;
 import lombok.Setter;

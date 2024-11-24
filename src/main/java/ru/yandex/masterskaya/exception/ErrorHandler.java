@@ -1,5 +1,6 @@
 package ru.yandex.masterskaya.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,6 +30,13 @@ public class ErrorHandler {
     @ExceptionHandler(ForbiddenException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public Map<String, String> handleForbiddenException(ForbiddenException e) {
+        log.error("ForbiddenException: {}", e.getMessage());
+        return Map.of("error", e.getMessage());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleValidationException(ConstraintViolationException e) {
         log.error("ForbiddenException: {}", e.getMessage());
         return Map.of("error", e.getMessage());
     }

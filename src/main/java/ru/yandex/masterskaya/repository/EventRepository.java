@@ -2,7 +2,7 @@ package ru.yandex.masterskaya.repository;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.yandex.masterskaya.model.Event;
+import ru.yandex.masterskaya.model.event.Event;
 
 import java.util.List;
 
