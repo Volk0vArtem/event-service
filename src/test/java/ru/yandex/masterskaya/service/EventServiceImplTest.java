@@ -1,8 +1,12 @@
 package ru.yandex.masterskaya.service;
 
 import jakarta.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,12 +19,6 @@ import ru.yandex.masterskaya.model.event.dto.EventShortResponseDto;
 import ru.yandex.masterskaya.repository.EventRepository;
 import ru.yandex.masterskaya.service.event.EventService;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 @Transactional
 @SpringBootTest
 @ActiveProfiles("test")
@@ -29,15 +27,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class EventServiceImplTest {
 
     private final EventService eventService;
+
     private final EventRepository eventRepository;
 
     private final EventRequestDto eventRequestDto = EventRequestDto.builder()
-            .name("name")
-            .description("description")
-            .location("location")
-            .startDateTime(LocalDateTime.now().plusDays(1))
-            .endDateTime(LocalDateTime.now().plusDays(5))
-            .build();
+        .name("name")
+        .description("description")
+        .location("location")
+        .startDateTime(LocalDateTime.now().plusDays(1))
+        .endDateTime(LocalDateTime.now().plusDays(5))
+        .build();
 
 
     @AfterEach
@@ -61,9 +60,10 @@ class EventServiceImplTest {
     void patchEvent() {
         EventResponseDto event = eventService.saveEvent(eventRequestDto, 1L);
         EventRequestDto patchedEventRequestDto = EventRequestDto.builder()
-                .name("patchedName")
-                .build();
-        EventResponseDto patchedEvent = eventService.patchEvent(patchedEventRequestDto, event.getId(), event.getOwnerId());
+            .name("patchedName")
+            .build();
+        EventResponseDto patchedEvent =
+            eventService.patchEvent(patchedEventRequestDto, event.getId(), event.getOwnerId());
         assertEquals(patchedEventRequestDto.getName(), patchedEvent.getName());
     }
 
@@ -97,12 +97,12 @@ class EventServiceImplTest {
     void getEventsByOwner() {
         eventService.saveEvent(eventRequestDto, 1L);
         EventRequestDto event2 = EventRequestDto.builder()
-                .name("name2")
-                .description("description2")
-                .location("location2")
-                .startDateTime(LocalDateTime.now().plusDays(2))
-                .endDateTime(LocalDateTime.now().plusDays(3))
-                .build();
+            .name("name2")
+            .description("description2")
+            .location("location2")
+            .startDateTime(LocalDateTime.now().plusDays(2))
+            .endDateTime(LocalDateTime.now().plusDays(3))
+            .build();
         eventService.saveEvent(event2, 2L);
 
         List<EventShortResponseDto> events = eventService.getEventsByOwner(2L, PageRequest.of(0, 10));

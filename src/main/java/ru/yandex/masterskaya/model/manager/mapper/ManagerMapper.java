@@ -8,6 +8,7 @@ import ru.yandex.masterskaya.model.manager.dto.ManagerDto;
 
 @Mapper(componentModel = "spring")
 public interface ManagerMapper {
+
     Manager toManager(ManagerDto dto);
 
     @Mapping(target = "userId", source = "dto.manager.userId")

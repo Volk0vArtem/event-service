@@ -1,5 +1,7 @@
 package ru.yandex.masterskaya.controller;
 
+import static ru.yandex.masterskaya.constants.Constants.X_EVENT_MANAGER;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +21,6 @@ import ru.yandex.masterskaya.model.manager.dto.CreateManagerDto;
 import ru.yandex.masterskaya.model.manager.dto.EventTeamDto;
 import ru.yandex.masterskaya.model.manager.dto.ManagerDto;
 import ru.yandex.masterskaya.service.management.ManagementService;
-
-import static ru.yandex.masterskaya.constants.Constants.X_EVENT_MANAGER;
 
 @RestController
 @RequestMapping("/managers")
