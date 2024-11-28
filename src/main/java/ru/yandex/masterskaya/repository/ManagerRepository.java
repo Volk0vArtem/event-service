@@ -6,4 +6,5 @@ import ru.yandex.masterskaya.model.manager.Manager;
 
 @Repository
 public interface ManagerRepository extends JpaRepository<Manager, Long> {
+
 }

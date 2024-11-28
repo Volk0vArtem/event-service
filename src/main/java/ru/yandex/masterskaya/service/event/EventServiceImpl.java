@@ -1,5 +1,8 @@
 package ru.yandex.masterskaya.service.event;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,10 +15,6 @@ import ru.yandex.masterskaya.model.event.dto.EventResponseDto;
 import ru.yandex.masterskaya.model.event.dto.EventShortResponseDto;
 import ru.yandex.masterskaya.model.event.mapper.EventMapper;
 import ru.yandex.masterskaya.repository.EventRepository;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,7 +38,7 @@ public class EventServiceImpl implements EventService {
 
     public EventResponseDto patchEvent(EventRequestDto eventRequestDto, Long userId, Long id) {
         Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Event not found"));
+            .orElseThrow(() -> new NotFoundException("Event not found"));
         if (!event.getOwnerId().equals(userId)) {
             throw new ForbiddenException("User is not event owner");
         }
@@ -73,7 +72,7 @@ public class EventServiceImpl implements EventService {
 
     public EventShortResponseDto getEvent(Long userId, Long id) {
         Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Event not found"));
+            .orElseThrow(() -> new NotFoundException("Event not found"));
 
         if (event.getOwnerId().equals(userId)) {
             return mapper.toEventResponseDto(event);
@@ -85,18 +84,18 @@ public class EventServiceImpl implements EventService {
     public List<EventShortResponseDto> getEventsByOwner(Long userId, PageRequest pageRequest) {
         if (userId != null) {
             return eventRepository.findAllByOwnerId(userId, pageRequest).stream()
-                    .map(mapper::toEventShortResponseDto)
-                    .collect(Collectors.toList());
+                .map(mapper::toEventShortResponseDto)
+                .collect(Collectors.toList());
         } else {
             return eventRepository.findAll().stream()
-                    .map(mapper::toEventShortResponseDto)
-                    .collect(Collectors.toList());
+                .map(mapper::toEventShortResponseDto)
+                .collect(Collectors.toList());
         }
     }
 
     public void deleteEvent(Long userId, Long id) {
         Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Event not found"));
+            .orElseThrow(() -> new NotFoundException("Event not found"));
         if (!event.getOwnerId().equals(userId)) {
             throw new ForbiddenException("User is not event owner");
         }

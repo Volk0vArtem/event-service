@@ -62,8 +62,8 @@ public class ManagementServiceImpl implements ManagementService {
 
     private void checkAccessRight(Long managerId, Event event) {
         boolean isManager = event.getPersonnel().stream()
-                .anyMatch(manager -> manager.getUserId().equals(managerId)
-                        && manager.getRole().equals(ManagerRole.MANAGER));
+            .anyMatch(manager -> manager.getUserId().equals(managerId)
+                && manager.getRole().equals(ManagerRole.MANAGER));
         if (managerId.equals(event.getOwnerId())) {
             return;
         }
@@ -75,7 +75,7 @@ public class ManagementServiceImpl implements ManagementService {
 
     private void checkMangerExists(Event event, Long managerId) {
         boolean notFound = event.getPersonnel().stream()
-                .noneMatch(manager -> manager.getUserId().equals(managerId));
+            .noneMatch(manager -> manager.getUserId().equals(managerId));
         if (notFound) {
             throw new NotFoundException("Manager not found!");
         }
@@ -83,6 +83,6 @@ public class ManagementServiceImpl implements ManagementService {
 
     private Event getEvent(Long eventId) {
         return eventRepository.findById(eventId)
-                .orElseThrow(() -> new NotFoundException("Event not found"));
+            .orElseThrow(() -> new NotFoundException("Event not found"));
     }
 }
