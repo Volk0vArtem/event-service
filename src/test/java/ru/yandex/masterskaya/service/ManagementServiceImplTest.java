@@ -1,7 +1,10 @@
 package ru.yandex.masterskaya.service;
 
 import jakarta.transaction.Transactional;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,11 +23,6 @@ import ru.yandex.masterskaya.model.manager.dto.ManagerDto;
 import ru.yandex.masterskaya.service.event.EventService;
 import ru.yandex.masterskaya.service.management.ManagementService;
 
-import java.time.LocalDateTime;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-
 @Transactional
 @SpringBootTest
 @ActiveProfiles("test")
@@ -33,18 +31,21 @@ import static org.hamcrest.Matchers.equalTo;
 class ManagementServiceImplTest {
 
     private final ManagementService service;
+
     private final EventService eventService;
 
-    private EventResponseDto event;
     private final EventRequestDto createEvent = EventRequestDto.builder()
-            .name("name")
-            .description("description")
-            .location("location")
-            .startDateTime(LocalDateTime.now().plusDays(1))
-            .endDateTime(LocalDateTime.now().plusDays(5))
-            .build();
+        .name("name")
+        .description("description")
+        .location("location")
+        .startDateTime(LocalDateTime.now().plusDays(1))
+        .endDateTime(LocalDateTime.now().plusDays(5))
+        .build();
 
     private final ManagerDto manager = new ManagerDto(2L, ManagerRole.MANAGER);
+
+    private EventResponseDto event;
+
     private CreateManagerDto createManager;
 
     @BeforeEach
@@ -63,10 +64,10 @@ class ManagementServiceImplTest {
     void shouldFailCreateTeam() {
         Long notOwner = 999L;
         ForbiddenException thrown = Assertions.assertThrows(ForbiddenException.class,
-                () -> service.createTeam(notOwner, createManager));
+            () -> service.createTeam(notOwner, createManager));
 
         assertThat(thrown.getMessage(),
-                equalTo("Only managers and owner can have access!"));
+            equalTo("Only managers and owner can have access!"));
     }
 
     @Test
@@ -81,10 +82,10 @@ class ManagementServiceImplTest {
     @Test
     void shouldFailUpdateRole() {
         NotFoundException thrown = Assertions.assertThrows(NotFoundException.class,
-                () -> service.updateRole(99L, event.getId(), manager));
+            () -> service.updateRole(99L, event.getId(), manager));
 
         assertThat(thrown.getMessage(),
-                equalTo("Manager not found!"));
+            equalTo("Manager not found!"));
     }
 
     @Test
@@ -106,9 +107,9 @@ class ManagementServiceImplTest {
         service.delete(event.getOwnerId(), event.getId(), answer.getPersonnel().get(0).getUserId());
 
         NotFoundException thrown = Assertions.assertThrows(NotFoundException.class,
-                () -> service.delete(event.getOwnerId(), event.getId(), answer.getPersonnel().get(0).getUserId()));
+            () -> service.delete(event.getOwnerId(), event.getId(), answer.getPersonnel().get(0).getUserId()));
 
         assertThat(thrown.getMessage(),
-                equalTo("Manager not found!"));
+            equalTo("Manager not found!"));
     }
 }

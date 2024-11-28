@@ -20,8 +20,11 @@ import ru.yandex.masterskaya.repository.ManagerRepository;
 public class ManagementServiceImpl implements ManagementService {
 
     private final EventRepository eventRepository;
+
     private final ManagerRepository managerRepository;
+
     private final EventMapper eventTeamMapper;
+
     private final ManagerMapper managerMapper;
 
     @Override

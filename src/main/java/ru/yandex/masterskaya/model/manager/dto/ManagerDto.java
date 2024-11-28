@@ -15,5 +15,6 @@ public class ManagerDto {
 
     @Min(1)
     private Long userId;
+
     private ManagerRole role;
 }

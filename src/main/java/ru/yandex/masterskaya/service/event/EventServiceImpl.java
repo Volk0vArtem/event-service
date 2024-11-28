@@ -21,6 +21,7 @@ import ru.yandex.masterskaya.repository.EventRepository;
 public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
+
     private final EventMapper mapper;
 
     public EventResponseDto saveEvent(EventRequestDto eventRequestDto, Long userId) {

@@ -13,5 +13,6 @@ import lombok.Setter;
 public class EventTeamDto {
 
     private Long eventId;
+
     private List<ManagerDto> personnel;
 }
