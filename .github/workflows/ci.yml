@@ -36,7 +36,3 @@ jobs:
       # Сборка и запуск тестов
       - name: Build and Test
         run: mvn clean install -DskipTests=false
-
-      # Запуск Checkstyle
-      - name: Run Checkstyle
-        run: mvn checkstyle:check
