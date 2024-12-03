@@ -5,6 +5,7 @@ import ru.yandex.masterskaya.model.manager.dto.EventTeamDto;
 import ru.yandex.masterskaya.model.manager.dto.ManagerDto;
 
 public interface ManagementService {
+
     EventTeamDto createTeam(Long managerId, CreateManagerDto dto);
 
     ManagerDto updateRole(Long managerId, Long eventId, ManagerDto dto);

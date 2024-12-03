@@ -12,7 +12,9 @@ import ru.yandex.masterskaya.model.manager.ManagerRole;
 @Getter
 @Setter
 public class ManagerDto {
+
     @Min(1)
     private Long userId;
+
     private ManagerRole role;
 }

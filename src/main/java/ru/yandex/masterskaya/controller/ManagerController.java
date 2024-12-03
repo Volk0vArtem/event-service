@@ -1,5 +1,7 @@
 package ru.yandex.masterskaya.controller;
 
+import static ru.yandex.masterskaya.constants.Constants.X_EVENT_MANAGER;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +22,6 @@ import ru.yandex.masterskaya.model.manager.dto.EventTeamDto;
 import ru.yandex.masterskaya.model.manager.dto.ManagerDto;
 import ru.yandex.masterskaya.service.management.ManagementService;
 
-import static ru.yandex.masterskaya.constants.Constants.X_EVENT_MANAGER;
-
 @RestController
 @RequestMapping("/managers")
 @RequiredArgsConstructor
@@ -32,14 +32,14 @@ public class ManagerController {
 
     @PostMapping
     public EventTeamDto create(@RequestHeader(X_EVENT_MANAGER) @Min(1) Long authorId,
-                               @RequestBody @Valid CreateManagerDto dto) {
+        @RequestBody @Valid CreateManagerDto dto) {
         return service.createTeam(authorId, dto);
     }
 
     @PatchMapping("/{eventId}")
     public ManagerDto changeStatus(@RequestHeader(X_EVENT_MANAGER) @Min(1) Long authorId,
-                                   @PathVariable(name = "eventId") @Min(1) Long eventId,
-                                   @RequestBody @Valid ManagerDto dto) {
+        @PathVariable(name = "eventId") @Min(1) Long eventId,
+        @RequestBody @Valid ManagerDto dto) {
         return service.updateRole(authorId, eventId, dto);
     }
 
@@ -51,8 +51,8 @@ public class ManagerController {
     @DeleteMapping("/{eventId}/{managerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestHeader(X_EVENT_MANAGER) @Min(1) Long authorId,
-                       @PathVariable(name = "eventId") @Min(1) Long eventId,
-                       @PathVariable(name = "managerId") @Min(1) Long userId) {
+        @PathVariable(name = "eventId") @Min(1) Long eventId,
+        @PathVariable(name = "managerId") @Min(1) Long userId) {
         service.delete(authorId, eventId, userId);
     }
 }

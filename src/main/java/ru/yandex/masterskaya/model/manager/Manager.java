@@ -1,11 +1,6 @@
 package ru.yandex.masterskaya.model.manager;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Manager {
+
     @Id
     @Column(name = "manager_id", unique = true)
     private Long userId;
@@ -28,8 +24,12 @@ public class Manager {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Manager manager = (Manager) o;
         return userId.equals(manager.userId);
     }

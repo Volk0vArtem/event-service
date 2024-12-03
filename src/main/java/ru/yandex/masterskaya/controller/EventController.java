@@ -34,20 +34,20 @@ public class EventController {
 
     @PostMapping
     public ResponseEntity<EventResponseDto> saveEvent(@RequestBody @Valid EventRequestDto eventRequestDto,
-                                                      @RequestHeader("X-User-Id") @Positive Long userId) {
+        @RequestHeader("X-User-Id") @Positive Long userId) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.saveEvent(eventRequestDto, userId));
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<EventResponseDto> patchEvent(@RequestBody @Valid EventRequestDto eventRequestDto,
-                                                       @RequestHeader("X-User-Id") @Positive Long userId,
-                                                       @PathVariable("id") Long id) {
+        @RequestHeader("X-User-Id") @Positive Long userId,
+        @PathVariable("id") Long id) {
         return ResponseEntity.ok().body(service.patchEvent(eventRequestDto, userId, id));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<EventShortResponseDto> getEvent(@RequestHeader("X-User-Id") @Positive @NotNull Long userId,
-                                                          @PathVariable("id") Long id) {
+        @PathVariable("id") Long id) {
         return ResponseEntity.ok().body(service.getEvent(userId, id));
     }
 
@@ -64,7 +64,7 @@ public class EventController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteEvent(@RequestHeader("X-User-Id") @NotNull Long userId,
-                            @PathVariable("id") Long id) {
+        @PathVariable("id") Long id) {
         service.deleteEvent(userId, id);
     }
 
