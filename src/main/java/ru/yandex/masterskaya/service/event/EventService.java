@@ -1,11 +1,10 @@
 package ru.yandex.masterskaya.service.event;
 
+import java.util.List;
 import org.springframework.data.domain.PageRequest;
 import ru.yandex.masterskaya.model.event.dto.EventRequestDto;
 import ru.yandex.masterskaya.model.event.dto.EventResponseDto;
 import ru.yandex.masterskaya.model.event.dto.EventShortResponseDto;
-
-import java.util.List;
 
 public interface EventService {
 

@@ -2,13 +2,12 @@ package ru.yandex.masterskaya.model.event.dto;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Size;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter

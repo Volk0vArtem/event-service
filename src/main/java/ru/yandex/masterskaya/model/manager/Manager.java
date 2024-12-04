@@ -18,6 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Manager {
+
     @Id
     @Column(name = "manager_id", unique = true)
     private Long userId;
@@ -28,8 +29,12 @@ public class Manager {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Manager manager = (Manager) o;
         return userId.equals(manager.userId);
     }
