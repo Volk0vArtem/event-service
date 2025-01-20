@@ -6,11 +6,12 @@ import ru.yandex.masterskaya.model.event.Event;
 import ru.yandex.masterskaya.model.event.dto.EventRequestDto;
 import ru.yandex.masterskaya.model.event.dto.EventResponseDto;
 import ru.yandex.masterskaya.model.event.dto.EventShortResponseDto;
-import ru.yandex.masterskaya.model.manager.mapper.ManagerMapper;
 import ru.yandex.masterskaya.model.manager.dto.EventTeamDto;
+import ru.yandex.masterskaya.model.manager.mapper.ManagerMapper;
 
 @Mapper(componentModel = "spring", uses = {ManagerMapper.class})
 public interface EventMapper {
+
     @Mapping(target = "eventId", source = "id")
     EventTeamDto toEventTeamDto(Event event);
 

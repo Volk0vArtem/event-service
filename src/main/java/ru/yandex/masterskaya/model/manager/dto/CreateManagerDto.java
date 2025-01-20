@@ -12,8 +12,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CreateManagerDto {
+
     @Min(1)
     private Long eventId;
+
     @Valid
     private ManagerDto manager;
 }
